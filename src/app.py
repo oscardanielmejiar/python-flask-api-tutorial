@@ -1,9 +1,18 @@
-from flask import Flask
+from flask import Flask, jsonify, request
 app = Flask(__name__)
 
-@app.route('/todos', methods=['GET'])
+todos = [{ "label": "My first task", "done": False }]
+
+@app.route('/todos', methods= ['GET'])
 def hello_world():
-    return "<h1>Hello Yo!</h1>"
+    json_text = jsonify(todos)
+    return json_text
+
+@app.route('/todos', methods=['POST'])
+def add_new_todo():
+    print("Incoming request with the following body", request.data)
+    return request.data
+
 
 
 # These two lines should always be at the end of your app.py file.
